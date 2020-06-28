@@ -10,8 +10,24 @@
 
 ## 后端
 
-**Apps：**
+### Apps
 
 - branch：银行信息
 - client：客户信息
 - account：账户信息
+
+### Models
+
+#### branch
+
+- **BranchInfo**: 分行信息
+- **StaffInfo**: 员工信息
+- **DepartmentInfo**: 部门信息
+
+#### client
+
+- **ClientInfo**: 客户信息
+- **ContactInfo**: 联系人信息
+- **ClientStaff**: 客户与员工关系
+
+#### account
