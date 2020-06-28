@@ -12,11 +12,11 @@ class ClientInfo(models.Model):
     name = models.CharField(max_length=30)
     tel = models.CharField(max_length=30)
     address = models.CharField(max_length=50)
-    contact = models.ForeignKey('ContactInfo', on_delete=models.SET_NULL)
+    contact = models.ForeignKey('ContactInfo', on_delete=models.SET_NULL, null=True)
     relation = models.CharField(max_length=20)
 
     def __str__(self):
-        return '%s, %s' % (name, ID_number)
+        return '%s, %s' % (self.name, self.ID_number)
 
 class ContactInfo(models.Model):
     """
@@ -29,7 +29,7 @@ class ContactInfo(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return '%s' % name
+        return '%s' % self.name
 
 class ClientStaff(models.Model):
     """
@@ -41,8 +41,7 @@ class ClientStaff(models.Model):
     client = models.ForeignKey('ClientInfo', on_delete=models.CASCADE)
     staff = models.ForeignKey('branch.StaffInfo', on_delete=models.CASCADE)
 
-    # Choices in (1 Loan, 2 Account)
-    relation_type = models.IntegerChoices('relation_type', 'LOAN ACCOUNT')
+    relation_type = models.IntegerField(default=0)
 
     class Meta:
         constraints = [
@@ -53,4 +52,4 @@ class ClientStaff(models.Model):
         ]
 
     def __str__(self):
-        return '%s, %s, %s' % (client, staff, relation_type)
+        return '%s, %s, %s' % (self.client, self.staff, self.relation_type)

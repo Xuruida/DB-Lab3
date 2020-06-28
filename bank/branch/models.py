@@ -21,7 +21,7 @@ class BranchInfo(models.Model):
         ]
         
     def __str__(self):
-        return '%s, %s' % (name, city)
+        return '%s, %s' % (self.name, self.city)
 
 
 class StaffInfo(models.Model):
@@ -38,7 +38,7 @@ class StaffInfo(models.Model):
     entry_date = models.DateField()
 
     def __str__(self):
-        return '%s, %s' % (name, ID_number)
+        return '%s, %s' % (self.name, self.ID_number)
 
 class DepartmentInfo(models.Model):
     """
@@ -50,7 +50,7 @@ class DepartmentInfo(models.Model):
     name = models.CharField(max_length=30)
     dep_type = models.IntegerField()
     branch = models.ForeignKey('BranchInfo', on_delete=models.CASCADE)
-    manager = models.ForeignKey('StaffInfo', on_delete=models.SET_NULL)
+    manager = models.ForeignKey('StaffInfo', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return '%s, %s, %s' % (name, dep_ID, branch)
+        return '%s, %s, %s' % (self.name, self.dep_ID, self.branch)

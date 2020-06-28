@@ -1,9 +1,9 @@
 from django.db import models
 
 # Create your models here.
-class AbstractAccount(models.Model):
+class AccountBase(models.Model):
     """
-    Abstract Class of Account.
+    Account Base Class.
     Fields: account_ID, open_date, is_savings, branch
     
     ! Needs constraint here but I have no idea.
@@ -16,13 +16,10 @@ class AbstractAccount(models.Model):
 
     branch = models.ForeignKey(
         'branch.BranchInfo',
-        on_delete=CASCADE
+        on_delete=models.CASCADE
     )
 
-    class Meta:
-        abstract = True
-
-class CheckingAccountInfo(AbstractAccount):
+class CheckingAccountInfo(AccountBase):
     """
     Checking Account Information.
     Fields: overdraft
@@ -31,9 +28,9 @@ class CheckingAccountInfo(AbstractAccount):
     overdraft = models.DecimalField(max_digits=20, decimal_places=3, default=0)
 
     def __str__(self):
-        return '%s, %s' % (account_ID, overdraft)
+        return '%s, %s' % (self.account_ID, self.overdraft)
 
-class SavingsAccountInfo(AbstractAccount):
+class SavingsAccountInfo(AccountBase):
     """
     Savings Account Information.
     Fields: balance, interest_rate, currency_type
@@ -44,7 +41,7 @@ class SavingsAccountInfo(AbstractAccount):
     currency_type = models.CharField(max_length=10)
         
     def __str__(self):
-        return '%s, %s' % (account_ID, balance)
+        return '%s, %s' % (self.account_ID, self.balance)
 
 class ClientAccount(models.Model):
     """
@@ -53,11 +50,11 @@ class ClientAccount(models.Model):
     """
 
     client = models.ForeignKey('client.ClientInfo', on_delete=models.CASCADE)
-    account = models.ForeignKey(AbstractAccount, on_delete=models.CASCADE)
+    account = models.ForeignKey(AccountBase, on_delete=models.CASCADE)
     latest_time = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%s, %s, %s' % (client, account, latest_time)
+        return '%s, %s, %s' % (self.client, self.account, self.latest_time)
 
 class LoanInfo(models.Model):
     """
@@ -68,7 +65,7 @@ class LoanInfo(models.Model):
     loan_ID = models.CharField(max_length=30, primary_key=True)
     branch = models.ForeignKey('branch.BranchInfo', on_delete=models.CASCADE)
     total_amount = models.DecimalField(max_digits=20, decimal_places=3)
-    clients = models.ManyToManyField('clients.ClientInfo', on_delete=models.CASCADE)
+    clients = models.ManyToManyField('client.ClientInfo')
 
 class IssuranceInfo(models.Model):
     """
