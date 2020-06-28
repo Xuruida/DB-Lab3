@@ -31,3 +31,10 @@
 - **ClientStaff**: 客户与员工关系
 
 #### account
+
+- **AbstractAccount**: 账户抽象类
+- **CheckingAccountInfo**: 支票账户
+- **SavingsAccountInfo**: 储蓄账户
+- **ClientAccount**: 客户-账户
+- **LoanInfo**: 贷款信息
+- **IssuranceINfo**: 贷款发放信息
