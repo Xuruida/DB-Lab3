@@ -43,6 +43,11 @@ INSTALLED_APPS = [
 
     # CORS
     'corsheaders',
+
+    # My Apps
+    'branch',
+    'client',
+    'account',
 ]
 
 MIDDLEWARE = [
