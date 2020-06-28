@@ -32,9 +32,9 @@
 
 #### account
 
-- **AbstractAccount**: 账户抽象类
+- **AccountBase**: 账户基类
 - **CheckingAccountInfo**: 支票账户
 - **SavingsAccountInfo**: 储蓄账户
 - **ClientAccount**: 客户-账户
 - **LoanInfo**: 贷款信息
-- **IssuranceINfo**: 贷款发放信息
+- **IssuranceInfo**: 贷款发放信息
