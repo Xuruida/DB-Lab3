@@ -5,9 +5,6 @@ class AccountBase(models.Model):
     """
     Account Base Class.
     Fields: account_ID, open_date, is_savings, branch
-    
-    ! Needs constraint here but I have no idea.
-
     """
 
     account_ID = models.CharField(max_length=20, primary_key=True)
@@ -19,29 +16,34 @@ class AccountBase(models.Model):
         on_delete=models.CASCADE
     )
 
-class CheckingAccountInfo(AccountBase):
+    def __str__(self):
+        return "%s" % self.account_ID
+
+class CheckingAccountInfo(models.Model):
     """
     Checking Account Information.
     Fields: overdraft
     """
 
+    account_base = models.OneToOneField(AccountBase, on_delete=models.CASCADE)
     overdraft = models.DecimalField(max_digits=20, decimal_places=3, default=0)
 
     def __str__(self):
-        return '%s, %s' % (self.account_ID, self.overdraft)
+        return '%s, %s' % (self.account_base, self.overdraft)
 
-class SavingsAccountInfo(AccountBase):
+class SavingsAccountInfo(models.Model):
     """
     Savings Account Information.
     Fields: balance, interest_rate, currency_type
     """
 
+    account_base = models.OneToOneField(AccountBase, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=20, decimal_places=3, default=0)
     interest_rate = models.FloatField()
     currency_type = models.CharField(max_length=10)
         
     def __str__(self):
-        return '%s, %s' % (self.account_ID, self.balance)
+        return '%s, %s' % (self.account_base, self.balance)
 
 class ClientAccount(models.Model):
     """
