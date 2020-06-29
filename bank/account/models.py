@@ -55,6 +55,13 @@ class ClientAccount(models.Model):
     account = models.ForeignKey(AccountBase, on_delete=models.CASCADE)
     latest_time = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['client', 'account'],
+                name='unique_cl_ac'
+            )
+        ]
     def __str__(self):
         return '%s, %s, %s' % (self.client, self.account, self.latest_time)
 
@@ -69,12 +76,12 @@ class LoanInfo(models.Model):
     total_amount = models.DecimalField(max_digits=20, decimal_places=3)
     clients = models.ManyToManyField('client.ClientInfo')
 
-class IssuranceInfo(models.Model):
+class ReleaseInfo(models.Model):
     """
-    Loan Issurance Information.
+    Loan Release Information.
     Fields: loan, amount, time
     """
 
-    loan = models.ForeignKey(LoanInfo, on_delete=models.CASCADE)
+    loan = models.ForeignKey(LoanInfo, related_name='releases',on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=20, decimal_places=3)
     time = models.DateTimeField(auto_now=True)

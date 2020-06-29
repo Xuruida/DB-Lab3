@@ -1,6 +1,17 @@
 from rest_framework import serializers
 
-from .models import AccountBase, CheckingAccountInfo, SavingsAccountInfo
+from .models import AccountBase, CheckingAccountInfo, SavingsAccountInfo, ClientAccount
+
+from .models import LoanInfo, ReleaseInfo
+
+class CASerializer(serializers.ModelSerializer):
+    """
+    Client Account
+    """
+
+    class Meta:
+        model = ClientAccount
+        fields = '__all__'
 
 class AccountBaseSerializer(serializers.ModelSerializer):
     """
@@ -9,7 +20,7 @@ class AccountBaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AccountBase
-        fields = '__all__'
+        fields = ['account_ID', 'open_date', 'is_savings']
 
 class CheckingSerializer(serializers.ModelSerializer):
     
@@ -45,7 +56,7 @@ class CheckingSerializer(serializers.ModelSerializer):
             setattr(instance.account_base, attr, value)
 
         return instance
-        
+
     class Meta:
         model = CheckingAccountInfo
         fields = '__all__'
@@ -88,3 +99,16 @@ class SavingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = SavingsAccountInfo
         fields = '__all__'
+
+class ReleaseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReleaseInfo
+        fields = '__all__'
+
+class LoanSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = LoanInfo
+        fields = ['loan_ID', 'branch', 'total_amount', 'clients']
+

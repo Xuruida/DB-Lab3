@@ -35,7 +35,7 @@ class ClientViewSet(viewsets.ModelViewSet):
             print("This client cannot be deleted.")
             return Response({
                 'status_code': -1,
-                'msg': "This client has client. Cannot delete.",
+                'message': "This client has client. Cannot delete.",
             },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -43,7 +43,7 @@ class ClientViewSet(viewsets.ModelViewSet):
             instance.delete()
             return Response({
                 "status_code": 0,
-                "msg": "Deleted Successfully.",
+                "message": "Deleted Successfully.",
             },
                 status=status.HTTP_200_OK)
 
@@ -121,7 +121,7 @@ class ContactViewSet(mixins.RetrieveModelMixin,
             return Response(
                 {
                     'status_code': -1,
-                    'msg': "This contact is related to some client. Please remove relation first."
+                    'message': "This contact is related to some client. Please remove relation first."
                 },
                 status=status.HTTP_400_BAD_REQUEST
             )
