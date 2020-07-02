@@ -30,7 +30,6 @@ router.register('account', account.views.CAViewSet)
 router.register('loan', account.views.LoanViewSet)
 router.register('release', account.views.ReleaseViewSet)
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
