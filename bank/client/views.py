@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import status, viewsets, mixins
 from rest_framework.response import Response
 
-from .models import ClientInfo, ClientStaff, ContactInfo
-from .serializers import ClientSerializer, ContactSerializer
+from .models import ClientInfo, ClientStaff
+from .serializers import ClientSerializer
 
 # Create your views here.
 
@@ -35,7 +35,7 @@ class ClientViewSet(viewsets.ModelViewSet):
             print("This client cannot be deleted.")
             return Response({
                 'status_code': -1,
-                'message': "This client has client. Cannot delete.",
+                'message': "This client has account or loan. Cannot delete.",
             },
                 status=status.HTTP_400_BAD_REQUEST
             )
@@ -84,49 +84,3 @@ class ClientViewSet(viewsets.ModelViewSet):
             'data': serializer.data
         },
             status=status.HTTP_201_CREATED, headers=headers)
-
-
-class ContactViewSet(mixins.RetrieveModelMixin,
-                     mixins.CreateModelMixin,
-                     mixins.DestroyModelMixin,
-                     viewsets.GenericViewSet):
-
-    queryset = ContactInfo.objects.all()
-    serializer_class = ContactSerializer
-
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        return Response({
-            'status_code': 0,
-            'data': serializer.data
-        },
-            status=status.HTTP_200_OK)
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response({
-            'status_code': 0,
-            'data': serializer.data
-        },
-            status=status.HTTP_201_CREATED, headers=headers)
-
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        if instance.clientinfo_set.all():
-            print(instance.clientinfo_set.all())
-            return Response(
-                {
-                    'status_code': -1,
-                    'message': "This contact is related to some client. Please remove relation first."
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        self.perform_destroy(instance)
-        return Response({
-            'status_code': 0
-        },
-            status=status.HTTP_204_NO_CONTENT)

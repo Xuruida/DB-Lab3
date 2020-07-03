@@ -5,7 +5,7 @@
   >
     <a-layout-sider :trigger="null">
       <div class="logo" />
-      <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
+      <a-menu theme="dark" mode="inline">
         <a-menu-item
           @click="
             () => {
@@ -28,7 +28,14 @@
           <a-icon type="video-camera" />
           <span>客户管理</span>
         </a-menu-item>
-        <a-menu-item key="3">
+        <a-menu-item
+          @click="
+            () => {
+              this.$router.push({ path: '/account' });
+            }
+          "
+          key="3"
+        >
           <a-icon type="upload" />
           <span>账户管理</span>
         </a-menu-item>
@@ -47,6 +54,13 @@ export default {
     return {
       returned_data: "Default"
     };
+  },
+
+  watch: {
+    $route(to, from) {
+      console.log(to, from);
+      if (to !== from) this.$router.push(to);
+    }
   },
 
   methods: {

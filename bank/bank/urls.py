@@ -23,7 +23,6 @@ import client.views, account.views
 router = DefaultRouter()
 
 router.register('client', client.views.ClientViewSet)
-router.register('contact', client.views.ContactViewSet)
 router.register('savings', account.views.SavingsViewSet)
 router.register('checking', account.views.CheckingViewSet)
 router.register('account', account.views.CAViewSet)
