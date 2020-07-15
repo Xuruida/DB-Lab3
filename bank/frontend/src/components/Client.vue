@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-layout-header style="background: #fff; padding: 0px text-align: center">
-      <h1>客户信息列表</h1>
+      <h1>客户管理</h1>
     </a-layout-header>
     <a-layout-content
       :style="{

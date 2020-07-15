@@ -4,6 +4,8 @@ import Home from "../views/Home.vue";
 import Client from "@/components/Client.vue";
 import Account from "@/components/Account.vue";
 import ClientDetail from "@/components/ClientDetail.vue";
+import Savings from "@/components/Savings.vue";
+import Checking from "@/components/Checking.vue";
 import NotFound from "@/views/404.vue";
 // import Homepage from "@/views/Homepage/Homepage.vue";
 Vue.use(VueRouter);
@@ -34,7 +36,19 @@ const routes = [
         component: Account
       },
       {
+        path: "savings",
+        component: Savings
+      },
+      {
+        path: "checking",
+        component: Checking
+      },
+      {
         path: "404",
+        component: NotFound
+      },
+      {
+        path: "*",
         component: NotFound
       }
     ]

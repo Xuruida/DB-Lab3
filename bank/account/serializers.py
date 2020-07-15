@@ -20,7 +20,7 @@ class AccountBaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AccountBase
-        fields = ['account_ID', 'open_date', 'is_savings']
+        fields = '__all__'
 
 class CheckingSerializer(serializers.ModelSerializer):
     
@@ -45,8 +45,11 @@ class CheckingSerializer(serializers.ModelSerializer):
 
         reference: rest_framework/serializers.py
         """
-        account_data = validated_data.pop('account_base')
-        account_data['is_savings'] = False
+        if ('account_base' in validated_data):
+            account_data = validated_data.pop('account_base')
+            account_data['is_savings'] = False
+        else:
+            account_data = {}
         print(validated_data, account_data, sep='\n')
         # checking's data
         for attr, value in validated_data.items():
@@ -55,6 +58,8 @@ class CheckingSerializer(serializers.ModelSerializer):
         for attr, value in account_data.items():
             setattr(instance.account_base, attr, value)
 
+        instance.save()  # important!!
+        
         return instance
 
     class Meta:
@@ -84,8 +89,11 @@ class SavingsSerializer(serializers.ModelSerializer):
 
         reference: rest_framework/serializers.py
         """
-        account_data = validated_data.pop('account_base')
-        account_data['is_savings'] = True
+        if ('account_base' in validated_data):
+            account_data = validated_data.pop('account_base')
+            account_data['is_savings'] = True
+        else:
+            account_data = {}
         print(validated_data, account_data, sep='\n')
         # savings's data
         for attr, value in validated_data.items():
@@ -93,6 +101,8 @@ class SavingsSerializer(serializers.ModelSerializer):
 
         for attr, value in account_data.items():
             setattr(instance.account_base, attr, value)
+
+        instance.save()
 
         return instance
 

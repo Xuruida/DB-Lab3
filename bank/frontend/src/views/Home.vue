@@ -14,7 +14,6 @@
           "
           key="1"
         >
-          <a-icon type="user" />
           <span>主页</span>
         </a-menu-item>
         <a-menu-item
@@ -25,20 +24,33 @@
           "
           key="2"
         >
-          <a-icon type="video-camera" />
           <span>客户管理</span>
         </a-menu-item>
-        <a-menu-item
-          @click="
-            () => {
-              this.$router.push({ path: '/account' });
-            }
-          "
-          key="3"
-        >
-          <a-icon type="upload" />
-          <span>账户管理</span>
-        </a-menu-item>
+        <a-sub-menu key="account">
+          <span slot="title"><span>账户管理</span></span>
+          <a-menu-item-group key="g1">
+            <a-menu-item
+              @click="
+                () => {
+                  this.$router.push({ path: '/savings' });
+                }
+              "
+              key="3"
+            >
+              <span>储蓄账户管理</span>
+            </a-menu-item>
+            <a-menu-item
+              @click="
+                () => {
+                  this.$router.push({ path: '/checking' });
+                }
+              "
+              key="4"
+            >
+              <span>支票账户管理</span>
+            </a-menu-item>
+          </a-menu-item-group>
+        </a-sub-menu>
       </a-menu>
     </a-layout-sider>
     <a-layout>

@@ -54,6 +54,7 @@ class SavingsViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
+        print(partial)
         instance = self.get_object()
         print(instance)
         serializer = self.get_serializer(
