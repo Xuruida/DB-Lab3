@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 
 # Create your models here.
 class AccountBase(models.Model):
@@ -8,7 +10,7 @@ class AccountBase(models.Model):
     """
 
     account_ID = models.CharField(max_length=20, primary_key=True)
-    open_date = models.DateField(auto_now=True)
+    open_date = models.DateField(default=timezone.now)
     is_savings = models.BooleanField()
 
     branch = models.ForeignKey(
@@ -53,7 +55,7 @@ class ClientAccount(models.Model):
 
     client = models.ForeignKey('client.ClientInfo', on_delete=models.CASCADE)
     account = models.ForeignKey(AccountBase, on_delete=models.CASCADE)
-    latest_time = models.DateTimeField(auto_now=True)
+    latest_time = models.DateTimeField(default=timezone.now)
 
     class Meta:
         constraints = [
@@ -75,6 +77,7 @@ class LoanInfo(models.Model):
     branch = models.ForeignKey('branch.BranchInfo', on_delete=models.CASCADE)
     total_amount = models.DecimalField(max_digits=20, decimal_places=3)
     clients = models.ManyToManyField('client.ClientInfo')
+    create_time = models.DateTimeField(default=timezone.now)
 
     def get_releases(self):
         return ReleaseInfo.objects.filter(loan=self)
@@ -90,4 +93,4 @@ class ReleaseInfo(models.Model):
 
     loan = models.ForeignKey(LoanInfo, related_name='releases',on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=20, decimal_places=3)
-    time = models.DateTimeField(auto_now=True)
+    time = models.DateTimeField(default=timezone.now)
