@@ -27,7 +27,8 @@ class CheckingAccountInfo(models.Model):
     Fields: overdraft
     """
 
-    account_base = models.OneToOneField(AccountBase, on_delete=models.CASCADE)
+    account_base = models.OneToOneField(
+        AccountBase, on_delete=models.CASCADE, related_name="checking")
     overdraft = models.DecimalField(max_digits=20, decimal_places=3, default=0)
 
     def __str__(self):
@@ -39,7 +40,8 @@ class SavingsAccountInfo(models.Model):
     Fields: balance, interest_rate, currency_type
     """
 
-    account_base = models.OneToOneField(AccountBase, on_delete=models.CASCADE)
+    account_base = models.OneToOneField(
+        AccountBase, on_delete=models.CASCADE, related_name="savings")
     balance = models.DecimalField(max_digits=20, decimal_places=3, default=0)
     interest_rate = models.FloatField()
     currency_type = models.CharField(max_length=10)

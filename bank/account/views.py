@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+import datetime
+
 from rest_framework import viewsets, status, mixins
 from rest_framework.response import Response
 from .serializers import SavingsSerializer, CheckingSerializer, CASerializer, LoanSerializer, ReleaseSerializer
@@ -67,6 +69,15 @@ class SavingsViewSet(viewsets.ModelViewSet):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
+
+        # Update time
+        now = datetime.datetime.now()
+        query = ClientAccount.filter(account=instance)
+        print(query)
+
+        for item in query:
+            item.latest_time = now
+            item.save()
 
         return Response({
             "status_code": 0,
@@ -139,6 +150,15 @@ class CheckingViewSet(viewsets.ModelViewSet):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
+            
+        # Update time
+        now = datetime.datetime.now()
+        query = ClientAccount.filter(account=instance)
+        print(query)
+
+        for item in query:
+            item.latest_time = now
+            item.save()
 
         return Response({
             "status_code": 0,

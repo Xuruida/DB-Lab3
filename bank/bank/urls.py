@@ -32,4 +32,5 @@ router.register('release', account.views.ReleaseViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('stat/', include('branch.urls'))
 ]
