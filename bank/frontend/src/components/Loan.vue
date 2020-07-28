@@ -78,6 +78,11 @@ const columns = [
     dataIndex: "total_amount"
   },
   {
+    title: "客户身份证号",
+    key: "clients",
+    dataIndex: "clients"
+  },
+  {
     title: "详情信息",
     key: "detail",
     scopedSlots: { customRender: "detail" }

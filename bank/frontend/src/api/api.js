@@ -104,6 +104,10 @@ export const deleteLoan = loan_id => {
   return axios.delete(devHost + `api/loan/${loan_id}`);
 };
 
+export const getLoanDetail = loan_id => {
+  return axios.get(devHost + `api/loan/${loan_id}`);
+};
+
 // Loan Release
 
 export const listRelease = () => {
@@ -118,6 +122,9 @@ export const getLoanReleases = loan_id => {
   });
 };
 
+export const createRelease = params => {
+  return axios.post(devHost + `api/release/`, params);
+};
 /*
 export const getHomepage = (course_id, semester_id, course_sub_id) => {
   console.log(devHost + "api/homepage/get_homepage");
