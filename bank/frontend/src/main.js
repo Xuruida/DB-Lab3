@@ -6,9 +6,12 @@ import store from "./store";
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 
+import VCharts from "v-charts";
+
 Vue.config.productionTip = false;
 
 Vue.use(Antd);
+Vue.use(VCharts);
 
 new Vue({
   router,

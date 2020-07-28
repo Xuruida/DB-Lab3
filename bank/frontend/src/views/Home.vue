@@ -61,6 +61,16 @@
         >
           <span>贷款管理</span>
         </a-menu-item>
+        <a-menu-item
+          @click="
+            () => {
+              this.$router.push({ path: '/stat/' });
+            }
+          "
+          key="6"
+        >
+          <span>业务统计</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>

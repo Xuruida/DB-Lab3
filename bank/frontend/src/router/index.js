@@ -9,7 +9,7 @@ import Savings from "@/components/Savings.vue";
 import Checking from "@/components/Checking.vue";
 import Loan from "@/components/Loan.vue";
 import LoanDetail from "@/components/LoanDetail.vue";
-
+import Stat from "@/components/Stat.vue";
 import NotFound from "@/views/404.vue";
 // import Homepage from "@/views/Homepage/Homepage.vue";
 Vue.use(VueRouter);
@@ -54,6 +54,10 @@ const routes = [
       {
         path: "loan/:loan_id",
         component: LoanDetail
+      },
+      {
+        path: "stat",
+        component: Stat
       },
       {
         path: "404",

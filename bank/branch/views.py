@@ -4,7 +4,7 @@ from rest_framework import views, status
 from rest_framework.response import Response
 
 from .models import BranchInfo
-from account.models import LoanInfo, ReleaseInfo, ClientAccount
+from account.models import LoanInfo, ReleaseInfo, AccountBase
 
 import datetime
 from dateutil.relativedelta import relativedelta
@@ -56,9 +56,9 @@ class BranchStats(views.APIView):
 
                 print(monthlyLoan, totalLoanAmount, totalReleaseAmount)
                 # Account Stat
-                monthlyCA = ClientAccount.objects.filter(
-                    latest_time__year=year).filter(latest_time__month=month)
-                monthlyAccountList = set([item.account for item in monthlyCA])
+
+                monthlyAccountList = AccountBase.objects.filter(branch=br.id).filter(
+                    open_date__year=year).filter(open_date__month=month)
 
                 monthlySVList = []
                 monthlyCKList = []

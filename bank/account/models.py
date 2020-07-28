@@ -10,7 +10,7 @@ class AccountBase(models.Model):
     """
 
     account_ID = models.CharField(max_length=20, primary_key=True)
-    open_date = models.DateField(default=timezone.now)
+    open_date = models.DateField(default=datetime.date.today)
     is_savings = models.BooleanField()
 
     branch = models.ForeignKey(

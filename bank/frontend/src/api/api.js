@@ -125,6 +125,13 @@ export const getLoanReleases = loan_id => {
 export const createRelease = params => {
   return axios.post(devHost + `api/release/`, params);
 };
+
+// Statistics
+
+export const getStat = () => {
+  return axios.get(devHost + `stat/`);
+};
+
 /*
 export const getHomepage = (course_id, semester_id, course_sub_id) => {
   console.log(devHost + "api/homepage/get_homepage");
