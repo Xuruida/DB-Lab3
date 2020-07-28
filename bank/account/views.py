@@ -313,7 +313,26 @@ class ReleaseViewSet(viewsets.GenericViewSet,
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        self.perform_create(serializer)
+        print(serializer.validated_data)
+        
+        if (serializer.validated_data['amount'] < 0):
+            return Response({
+                'status_code': 3,
+                'message': "amount must be larger than 0."
+            },
+                status=status.HTTP_400_BAD_REQUEST)
+        loan_inst = serializer.validated_data['loan']
+        remain = loan_inst.get_remaining_amount()
+        after_release = remain - serializer.validated_data['amount']
+        print('Remaining:', remain, '\nAfter Release:', after_release)
+        if (after_release >= 0):
+            self.perform_create(serializer)
+        else:
+            return Response({
+                'status_code': 4,
+                'message': "release amount cannot be larger than remainning amount"
+            },
+                status=status.HTTP_400_BAD_REQUEST)
         headers = self.get_success_headers(serializer.data)
         return Response({
             'status_code': 0,

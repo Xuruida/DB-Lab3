@@ -1,11 +1,15 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+
 import Client from "@/components/Client.vue";
 import Account from "@/components/Account.vue";
 import ClientDetail from "@/components/ClientDetail.vue";
 import Savings from "@/components/Savings.vue";
 import Checking from "@/components/Checking.vue";
+import Loan from "@/components/Loan.vue";
+import LoanDetail from "@/components/LoanDetail.vue";
+
 import NotFound from "@/views/404.vue";
 // import Homepage from "@/views/Homepage/Homepage.vue";
 Vue.use(VueRouter);
@@ -42,6 +46,14 @@ const routes = [
       {
         path: "checking",
         component: Checking
+      },
+      {
+        path: "loan",
+        component: Loan
+      },
+      {
+        path: "loan/:loan_id",
+        component: LoanDetail
       },
       {
         path: "404",

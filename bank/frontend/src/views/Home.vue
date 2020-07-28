@@ -51,6 +51,16 @@
             </a-menu-item>
           </a-menu-item-group>
         </a-sub-menu>
+        <a-menu-item
+          @click="
+            () => {
+              this.$router.push({ path: '/loan/' });
+            }
+          "
+          key="5"
+        >
+          <span>贷款管理</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
     <a-layout>

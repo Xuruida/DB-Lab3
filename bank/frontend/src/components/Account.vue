@@ -349,6 +349,9 @@ export default {
         })
         .catch(error => {
           this.$message.error(`删除失败. Error: ${error.response.status}`);
+          if (error.response.status == 404) {
+            this.$router.push("/404/");
+          }
         });
     },
 
@@ -372,6 +375,9 @@ export default {
             .catch(error => {
               console.log(error.response);
               this.$message.error(`添加失败 Error: ${error.response.status}`);
+              if (error.response.status == 404) {
+                this.$router.push("/404/");
+              }
             });
         }
       });
@@ -398,6 +404,9 @@ export default {
         .catch(error => {
           console.log(error);
           this.$message.error(`查询失败. Error: ${error.response.status}`);
+          if (error.response.status == 404) {
+            this.$router.push("/404/");
+          }
         });
     },
 
@@ -447,6 +456,9 @@ export default {
         .catch(error => {
           console.log(error);
           this.$message.error(`查询失败. Error: ${error.response.status}`);
+          if (error.response.status == 404) {
+            this.$router.push("/404/");
+          }
         });
     },
 
@@ -473,7 +485,7 @@ export default {
             });
         }
       });
-    },
+    }
   },
 
   watch: {

@@ -89,6 +89,35 @@ export const deleteCA = id => {
 export const postCA = params => {
   return axios.post(devHost + `api/account/`, params);
 };
+
+// Loan
+
+export const listLoan = () => {
+  return axios.get(devHost + `api/loan/`);
+};
+
+export const createLoan = params => {
+  return axios.post(devHost + `api/loan/`, params);
+};
+
+export const deleteLoan = loan_id => {
+  return axios.delete(devHost + `api/loan/${loan_id}`);
+};
+
+// Loan Release
+
+export const listRelease = () => {
+  return axios.get(devHost + `api/release/`);
+};
+
+export const getLoanReleases = loan_id => {
+  return axios.get(devHost + `api/release/`, {
+    params: {
+      loan_id: loan_id
+    }
+  });
+};
+
 /*
 export const getHomepage = (course_id, semester_id, course_sub_id) => {
   console.log(devHost + "api/homepage/get_homepage");

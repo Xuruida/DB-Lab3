@@ -76,6 +76,12 @@ class LoanInfo(models.Model):
     total_amount = models.DecimalField(max_digits=20, decimal_places=3)
     clients = models.ManyToManyField('client.ClientInfo')
 
+    def get_releases(self):
+        return ReleaseInfo.objects.filter(loan=self)
+    
+    def get_remaining_amount(self):
+        return self.total_amount - sum([release.amount for release in self.get_releases()])
+
 class ReleaseInfo(models.Model):
     """
     Loan Release Information.
