@@ -28,7 +28,13 @@
 <script>
 import { getStat } from "@/api/api.js";
 
-const columns = ["time", "loan_amount", "savings_amount", "checking_amount", "release_amount"];
+const columns = [
+  "time",
+  "loan_amount",
+  "savings_amount",
+  "checking_amount",
+  "release_amount"
+];
 export default {
   data() {
     this.chartSettings = {
